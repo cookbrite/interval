@@ -413,7 +413,7 @@ class Interval:
         return self.lower_bound != self.upper_bound \
             or (self.upper_closed and self.lower_closed)
 
-    def __cmp__(self, other):
+    def _compare(self, other):
         """Compares two intervals for ordering purposes
         
         >>> Interval.equal_to(-1) < Interval.equal_to(2)
@@ -438,7 +438,7 @@ class Interval:
         else:
             result = 1
         return result
-            
+
     def __and__(self, other):
         """Returns the intersection of two intervals
 
@@ -878,7 +878,21 @@ class Interval:
                 and self.upper_bound == other.upper_bound \
                 and self.lower_closed == other.lower_closed \
                 and self.upper_closed == other.upper_closed)
-            
+
+    def __lt__(self, other):
+        return self.comes_before(other)
+
+    def __le__(self, other):
+        return (self._compare(other) <= 0)
+
+    def __ge__(self, other):
+        return (self._compare(other) >= 0)
+
+    def __gt__(self, other):
+        return (self._compare(other) > 0)
+
+    def __ne__(self, other):
+        return (self._compare(other) != 0)
 
 class BaseIntervalSet(object):
     "Base class for IntervalSet and FrozenIntervalSet."
