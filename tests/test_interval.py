@@ -45,3 +45,7 @@ class TestIntervalSet(unittest.TestCase):
 		self.assertTrue(self.is01c.issubset(self.is02c))
 		self.assertFalse(self.is02c.issubset(self.is12c))
 		self.assertTrue(self.is01c.issubset(self.is01c))
+
+
+if __name__ == '__main__':
+    unittest.main()
